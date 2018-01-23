@@ -16,6 +16,7 @@ const int HEART_BEAT_INTERVAL_MS = 60000;
 
 void setup() {
     pinMode(13, INPUT);
+    pinMode(16, INPUT);
     
     Serial.begin(115200);
 
@@ -87,8 +88,9 @@ void loop() {
     int msSinceHeartBeat = 0;
     while (client.connected()) {
       int motion = digitalRead(13); // 2 on esp-01, use e.g. 13 on esp-12f
-      if (motion) {
-        client.print(motion);
+      int motion2 = digitalRead(16); 
+      if (motion || motion2) {
+        client.print(1);
         msSinceHeartBeat = 0;
         motion = 0;
       }
